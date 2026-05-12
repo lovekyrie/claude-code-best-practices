@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Read",
+      "Bash(pnpm install)",
+      "Bash(pnpm dev)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm typecheck)",
+      "Bash(pnpm build)",
+      "Bash(pnpm run:*)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(rg:*)",
+      "Bash(fd:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(rm -rf /)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git reset --hard*)",
+      "Bash(pnpm publish*)",
+      "Bash(npm publish*)",
+      "Bash(sudo *)",
+      "Bash(curl * | sh*)",
+      "Bash(curl * | bash*)",
+      "Bash(wget * | sh*)",
+      "Bash(:(){*)"
+    ]
+  },
+  "env": {
+    "NODE_OPTIONS": "--max-old-space-size=4096"
+  },
+  "includeCoAuthoredBy": false
+}
