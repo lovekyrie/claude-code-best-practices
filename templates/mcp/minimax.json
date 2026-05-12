@@ -5,7 +5,7 @@
       "command": "uvx",
       "args": ["minimax-coding-plan-mcp", "-y"],
       "env": {
-        "MINIMAX_API_KEY": "sk-cp-0RFAVf0YzE73wYqGYgzl8H5Z4qCdDf-BDjql30LxNbSRNDTOamJWjRglQ3cVOaFgwjdk3x3fuTkXFljoFpLt6FJvZoKQu48438UcUKORX-Z1j9dDoFwAW6w",
+        "MINIMAX_API_KEY": "REPLACE_WITH_YOUR_MINIMAX_API_KEY",
         "MINIMAX_API_HOST": "https://api.minimaxi.com"
       }
     }
