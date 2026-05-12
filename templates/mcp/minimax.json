@@ -1,11 +1,10 @@
 {
-  "_doc": "把这段 mcpServers 合并到 ~/.claude.json 的根对象里；MINIMAX_API_KEY 替换为真实 Key（建议改用 shell env 引用，避免写进文件）。来源：https://platform.minimaxi.com/docs/token-plan/mcp-guide",
+  "_doc": "把这段 mcpServers 合并到 ~/.claude.json 的根对象里。MINIMAX_API_KEY 不在此处填写，请在 ~/.zshrc 里 export，uvx 子进程会自动继承。来源：https://platform.minimaxi.com/docs/token-plan/mcp-guide",
   "mcpServers": {
     "MiniMax": {
       "command": "uvx",
       "args": ["minimax-coding-plan-mcp", "-y"],
       "env": {
-        "MINIMAX_API_KEY": "REPLACE_WITH_YOUR_MINIMAX_API_KEY",
         "MINIMAX_API_HOST": "https://api.minimaxi.com"
       }
     }

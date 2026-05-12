@@ -47,46 +47,65 @@
 
 ### 1. 获取 API Key
 
-去 [MiniMax 开放平台 - 充值与 Token](https://platform.minimaxi.com/user-center/payment/token-plan) 申请并复制 API Key。
+去 [MiniMax 开放平台 - 充值与 Token](https://platform.minimaxi.com/user-center/payment/token-plan) 申请并复制 API Key（形如 `sk-cp-...`）。
 
-### 2. 配置
+### 2. 把 Key 写进 `~/.zshrc`（一次性，永久生效）
 
-[`../templates/settings.global.json`](../templates/settings.global.json) 中的 `env` 已经写好默认值，**只需把 `ANTHROPIC_AUTH_TOKEN` 替换为你的真实 Key**：
-
-```json
-"env": {
-  "ANTHROPIC_BASE_URL": "https://api.minimaxi.com/anthropic",
-  "ANTHROPIC_AUTH_TOKEN": "REPLACE_WITH_YOUR_MINIMAX_API_KEY",
-  "API_TIMEOUT_MS": "3000000",
-  "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
-  "ANTHROPIC_MODEL": "MiniMax-M2.7",
-  "ANTHROPIC_DEFAULT_SONNET_MODEL": "MiniMax-M2.7",
-  "ANTHROPIC_DEFAULT_OPUS_MODEL": "MiniMax-M2.7",
-  "ANTHROPIC_DEFAULT_HAIKU_MODEL": "MiniMax-M2.7"
-}
-```
-
-> 国际版（`minimax.io`）对应 BASE_URL 为 `https://api.minimax.io/anthropic`，按需替换。
-
-### 3. 清理旧的 Anthropic 环境变量（关键）
-
-shell 环境变量优先级**高于** `settings.json`，必须先清掉，否则配置不生效：
+> **核心思路**：Key 只放在 shell 环境变量里，模板文件永远是占位符 / 不含 Key。这样：
+> - `cp templates/settings.global.json ~/.claude/settings.json` 之后**无需任何编辑**
+> - 重装 / 换电脑 / 同步模板时不会反复填 Key
+> - 模板可以安全提交到 git
 
 ```bash
-unset ANTHROPIC_AUTH_TOKEN
-unset ANTHROPIC_BASE_URL
-# 如果 ~/.zshrc 或 ~/.bashrc 里有 export，请同步删除
+cat >> ~/.zshrc <<'EOF'
+
+# === Claude Code via MiniMax ===
+export ANTHROPIC_AUTH_TOKEN="sk-cp-你的真实key"
+export MINIMAX_API_KEY="sk-cp-你的真实key"   # MCP 用，可与上一行同值
+EOF
+
+source ~/.zshrc
 ```
+
+> bash 用户改 `~/.bashrc`；fish 改 `~/.config/fish/config.fish`（`set -x ANTHROPIC_AUTH_TOKEN ...`）。
+
+### 3. 拷贝模板（开箱即用）
+
+```bash
+mkdir -p ~/.claude
+cp templates/settings.global.json ~/.claude/settings.json
+```
+
+`templates/settings.global.json` 里**没有** `ANTHROPIC_AUTH_TOKEN` 字段，Claude Code 启动时会自动从 shell env 读取。
+
+> 如果你**之前** shell 里 `export` 过 Anthropic 官方的 token，必须先清掉再重设：
+> ```bash
+> unset ANTHROPIC_AUTH_TOKEN ANTHROPIC_BASE_URL
+> # 同时把 ~/.zshrc 里旧的 export 行删除
+> ```
 
 ### 4. 跳过 onboarding
 
-新增 `~/.claude.json`（如已存在则编辑），加：
+新建或编辑 `~/.claude.json`，加上：
 
 ```json
 { "hasCompletedOnboarding": true }
 ```
 
-### 5. 验证
+### 5. 装 MiniMax MCP（图片理解 + 网络搜索）
+
+[`../templates/mcp/minimax.json`](../templates/mcp/minimax.json) 模板里也**没有 Key**，靠 `uvx` 子进程继承 shell env。
+
+```bash
+# 一键安装到 user scope（所有项目可用）
+claude mcp add -s user MiniMax \
+  --env MINIMAX_API_HOST=https://api.minimaxi.com \
+  -- uvx minimax-coding-plan-mcp -y
+```
+
+> 注意命令里也**没传** `MINIMAX_API_KEY`，因为 `~/.zshrc` 里已 export，`uvx` 启动子进程时会自动继承。
+
+### 6. 验证
 
 ```bash
 claude
@@ -96,15 +115,23 @@ claude
 
 - `/status` 应显示 `ANTHROPIC_BASE_URL` 指向 `api.minimaxi.com/anthropic`
 - `/model` 应显示 `MiniMax-M2.7`
+- `/mcp` 应看到 `MiniMax` 服务器（绿色），含 `understand_image` / `web_search` 两个工具
 
-### 安全提醒
+### 国际版（如果你用 `minimax.io`）
 
-⚠️ **不要把 `ANTHROPIC_AUTH_TOKEN` 真实值提交到 git**。推荐做法二选一：
+把 `~/.zshrc` 里 `MINIMAX_API_KEY` 不变，但相应替换 host：
 
-- **方案 A（推荐）**：把 token 放到 `~/.zshrc` 里 `export ANTHROPIC_AUTH_TOKEN=...`，删除 `settings.json` 里这一行；shell env 优先级更高
-- **方案 B**：保留在 `~/.claude/settings.json`（这个文件本就是本机私有，不会进任何仓库）；但**不要**把它拷到团队共享仓库
+```json
+"ANTHROPIC_BASE_URL": "https://api.minimax.io/anthropic"
+```
 
-本仓库 `templates/settings.global.json` 里写的是 `REPLACE_WITH_YOUR_MINIMAX_API_KEY` 占位符，安全可提交。
+MCP 安装命令的 `MINIMAX_API_HOST` 改为 `https://api.minimax.io`。
+
+### 安全要点
+
+✅ **真实 Key 只在 `~/.zshrc`**（本机私有，不进任何仓库）
+✅ **模板里永远不含 Key**（已经做到）
+❌ **不要**把 `~/.claude/settings.json` 或 `~/.claude.json` 复制进任何 git 仓库的 `templates/`
 
 ## 全局 slash commands
 

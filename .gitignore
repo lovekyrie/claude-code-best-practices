@@ -1,0 +1,16 @@
+# Claude Code 本地私有配置（含真实 Key / Always-allow 列表，不进 git）
+.claude/settings.local.json
+.claude/.session/
+
+# 系统 / 编辑器
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Node
+node_modules/
+dist/
+.nuxt/
+.output/
+*.log
