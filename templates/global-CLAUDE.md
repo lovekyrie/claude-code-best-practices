@@ -33,6 +33,20 @@
 - **禁止** `git push --force` 到任何共享分支
 - 提交前确认 `git status` 没有意外文件
 
+## Git 凭证（重要：节省 token）
+
+GitHub 凭证已经在我本机一次性配好（SSH 或 keychain）。**你不要尝试以下任何操作**：
+
+- ❌ `git config` 修改任何 git 配置
+- ❌ `gh auth login` / `gh auth status` 重做 GitHub 授权
+- ❌ `security find-internet-password` 等任何 macOS Keychain 操作
+- ❌ `export GIT_ASKPASS=...` 或设置 `GIT_TERMINAL_PROMPT=0`
+- ❌ 修改 `~/.gitconfig`、`~/.netrc`、`~/.ssh/config`
+
+如果 `git push` / `git pull` / `git fetch` 因为凭证报错（例如 `Permission denied (publickey)`、`could not read Username`、`Authentication failed`），**直接把原始错误打印给我，停手，不要尝试任何修复**。我会自己处理凭证问题。
+
+非凭证类的 git 报错（merge 冲突、non-fast-forward、有未提交文件等）可以正常处理。
+
 ## 测试
 
 - **不要删除或跳过测试**来让流水线通过

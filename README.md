@@ -13,7 +13,8 @@
 │   ├── 02-new-project-sop.md          新项目上手 SOP（强烈建议先看）
 │   ├── 03-efficient-usage.md          高效使用技巧
 │   ├── 04-claude-md-guide.md          CLAUDE.md 写作指南
-│   └── 05-troubleshooting.md          常见问题与排查
+│   ├── 05-troubleshooting.md          常见问题与排查
+│   └── 06-github-credentials.md       GitHub 推送凭证一次性配置
 └── templates/                         可拷贝模板
     ├── CLAUDE.md                      项目级 CLAUDE.md（前端 / TS 倾向）
     ├── global-CLAUDE.md               全局 ~/.claude/CLAUDE.md
