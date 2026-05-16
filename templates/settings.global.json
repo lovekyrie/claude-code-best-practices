@@ -72,6 +72,7 @@
   },
   "env": {
     "ANTHROPIC_BASE_URL": "https://api.minimaxi.com/anthropic",
+    "ANTHROPIC_AUTH_TOKEN": "MINIMAX_API_KEY",
     "API_TIMEOUT_MS": "3000000",
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
     "ANTHROPIC_MODEL": "MiniMax-M2.7",
@@ -81,9 +82,12 @@
   },
   "mcpServers": {
     "MiniMax": {
-      "args": [],
       "command": "uvx",
-      "env": {}
+      "args": ["minimax-coding-plan-mcp", "-y"],
+      "env": {
+        "MINIMAX_API_KEY": "MINIMAX_API_KEY",
+        "MINIMAX_API_HOST": "https://api.minimaxi.com"
+      }
     },
     "github": {
       "args": [],
