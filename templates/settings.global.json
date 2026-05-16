@@ -35,7 +35,9 @@
       "Bash(pnpm lint:*)",
       "Bash(pnpm typecheck)",
       "mcp__MiniMax__understand_image",
-      "mcp__MiniMax__web_search"
+      "mcp__MiniMax__web_search",
+      "mcp__github__*",
+      "Bash(uvx *)"
     ],
     "deny": [
       "Bash(rm -rf *)",
@@ -77,5 +79,24 @@
     "ANTHROPIC_DEFAULT_OPUS_MODEL": "MiniMax-M2.7",
     "ANTHROPIC_DEFAULT_HAIKU_MODEL": "MiniMax-M2.7"
   },
+  "mcpServers": {
+    "MiniMax": {
+      "args": [],
+      "command": "uvx",
+      "env": {}
+    },
+    "github": {
+      "args": [],
+      "command": "uvx",
+      "env": {}
+    },
+    "fetch": {
+      "args": [
+        "mcp-server-fetch"
+      ],
+      "command": "uvx"
+    }
+  },
+  "packageManager": "pnpm",
   "includeCoAuthoredBy": false
 }
