@@ -38,6 +38,8 @@ cp -R templates/commands ~/.claude/commands
 cp -R templates/agents   ~/.claude/agents
 ```
 
+> **配置注意**：Claude Code 的 MCP 服务读取 `~/.claude.json` 中的 `mcpServers` 配置，而非 `~/.claude/settings.json`。如果使用全局 MCP，请将配置手动添加到 `~/.claude.json`。
+
 > **国内环境必看**：模板默认通过 **MiniMax 开放平台**（国内版 `minimaxi.com`）调用 `MiniMax-M2.7` 模型，而不是 Anthropic 官方 API。拷贝后需把 `~/.claude/settings.json` 里的 `ANTHROPIC_AUTH_TOKEN` 替换成你的真实 Key，并新建 `~/.claude.json` 加 `{ "hasCompletedOnboarding": true }`。详细步骤见 [`docs/01-global-setup.md` 的 MiniMax 接入小节](docs/01-global-setup.md#使用-minimax-m27国内环境必读)。
 
 ### 2. 新项目第一天的标准动作
@@ -65,3 +67,4 @@ cp -R templates/agents   ~/.claude/agents
 3. **再读** [`docs/01-global-setup.md`](docs/01-global-setup.md)：建立你专属的全局配置
 4. **进阶** [`docs/03-efficient-usage.md`](docs/03-efficient-usage.md)：Plan Mode、subagents、并行
 5. **遇到问题** [`docs/05-troubleshooting.md`](docs/05-troubleshooting.md)
+
