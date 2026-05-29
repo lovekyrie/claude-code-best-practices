@@ -1,5 +1,5 @@
 ---
-description: 对当前未提交改动 / 指定 PR 进行严格代码审查
+description: 对当前未提交改动 / 指定 PR 进行严格代码审查 小改动后调用
 allowed-tools: Read, Grep, Glob, Bash(git status), Bash(git diff:*), Bash(git log:*), Bash(git show:*)
 argument-hint: [可选：分支名 / commit / PR 号]
 ---
