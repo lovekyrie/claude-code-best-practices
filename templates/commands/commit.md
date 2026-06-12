@@ -1,6 +1,6 @@
 ---
 description: 按 Conventional Commits 生成提交信息并提交
-allowed-tools: Bash(git status), Bash(git diff:*), Bash(git log:*), Bash(git add:*), Bash(git commit:*)
+allowed-tools: Bash(git status), Bash(git diff:*), Bash(git log:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*)
 argument-hint: [可选：附加说明 / scope 提示]
 ---
 
@@ -30,4 +30,3 @@ argument-hint: [可选：附加说明 / scope 提示]
 
 - ❌ 不要 `git add .`，请显式 `git add <file>` 或先与我确认
 - ❌ 不要包含 `Co-authored-by: Claude`，除非项目要求
-- ❌ 不要 push（push 由我手动执行）
