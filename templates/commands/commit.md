@@ -26,6 +26,12 @@ argument-hint: [可选：附加说明 / scope 提示]
 
 确认信息后用 `git commit -m "<title>" -m "<body>"`（如有 body），不要使用 `-am`。
 
+## 推送
+
+`git commit` 成功后，直接 `git push` 推送到当前分支对应的远程分支（不要 `--force`）。
+- 如果没有 upstream，先 `git push -u origin <current-branch>` 一次
+- 如果 push 失败（non-fast-forward 等），**停下来报告错误，不要自动 force push**
+
 ## 禁止
 
 - ❌ 不要 `git add .`，请显式 `git add <file>` 或先与我确认
